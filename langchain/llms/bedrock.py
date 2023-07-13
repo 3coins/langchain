@@ -108,22 +108,22 @@ class Bedrock(LLM):
         """Validate that AWS credentials to and python package exists in environment."""
 
         # Skip creating new client if passed in constructor
-        if values["client"] is not None:
+        if values.get("client") is not None:
             return values
 
         try:
             import boto3
 
-            if values["credentials_profile_name"] is not None:
+            if values.get("credentials_profile_name"):
                 session = boto3.Session(profile_name=values["credentials_profile_name"])
             else:
                 # use default credentials
                 session = boto3.Session()
 
             client_params = {}
-            if values["region_name"]:
+            if values.get("region_name"):
                 client_params["region_name"] = values["region_name"]
-            if values["endpoint_url"]:
+            if values.get("endpoint_url"):
                 client_params["endpoint_url"] = values["endpoint_url"]
 
             values["client"] = session.client("bedrock", **client_params)
