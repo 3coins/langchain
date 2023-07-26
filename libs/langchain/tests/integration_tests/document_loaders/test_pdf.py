@@ -9,6 +9,7 @@ from langchain.document_loaders import (
     PyPDFLoader,
     UnstructuredPDFLoader,
 )
+from langchain.document_loaders.pdf import AmazonTextractPDFLoader
 
 
 def test_unstructured_pdf_loader_elements_mode() -> None:
@@ -136,3 +137,26 @@ def test_mathpix_loader() -> None:
     docs = loader.load()
     assert len(docs) == 1
     print(docs[0].page_content)
+
+# def test_amazontextract_loader() -> None:
+    # file_path = "https://amazon-textract-public-content.s3.us-east-2.amazonaws.com/langchain/alejandro_rosalez_sample_1.jpg"
+    # loader = AmazonTextractPDFLoader(str(file_path))
+    # docs = loader.load()
+    # print(docs)
+
+    # assert len(docs) == 1
+
+    # file_path = Path(__file__).parent.parent / "examples/hello.pdf"
+    # loader = AmazonTextractPDFLoader(str(file_path))
+    # docs = loader.load()
+
+    # assert len(docs) == 1
+
+    # import boto3
+    # textract_client = boto3.client('textract', region_name='us-east-2')
+
+    # file_path = "s3://amazon-textract-public-content/langchain/layout-parser-paper.pdf"
+    # loader = AmazonTextractPDFLoader(str(file_path), boto3_textract_client=textract_client)
+
+    # docs = loader.load()
+    # assert len(docs) == 16
